@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  background-color: #082042;
+  color: #0B2340;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+.stamp-pending, .stamp-received { color: #B8863A; }
+.stamp-confirmed, .stamp-preparing { color: #0B63C9; }
+.stamp-completed, .stamp-ready { color: #1D8D41; }
+.stamp-cancelled { color: #A6453D; }
+
+/* Brand wordmark gradient, matching the eSebeLink logo (blue -> green) */
+.brand-text-gradient {
+  background: linear-gradient(90deg, #3FA9F5 0%, #6BCD20 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
