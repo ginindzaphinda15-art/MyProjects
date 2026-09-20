@@ -31,7 +31,7 @@ export default function VendorList() {
     vendorApi
       .list(params)
       .then(({ data }) => {
-        if (active) setVendors(data.vendors);
+        if (active) setVendors(Array.isArray(data?.vendors) ? data.vendors : []);
       })
       .catch(() => active && setError('Could not load vendors right now.'))
       .finally(() => active && setLoading(false));
@@ -64,12 +64,12 @@ export default function VendorList() {
 
       {loading && <LoadingSpinner label="Finding businesses near you…" />}
       {error && <p className="text-accent-red text-sm">{error}</p>}
-      {!loading && !error && vendors.length === 0 && (
+      {!loading && !error && vendors?.length === 0 && (
         <p className="text-sm text-ink/60">No businesses match those filters yet.</p>
       )}
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {vendors.map((v) => (
+        {vendors?.map((v) => (
           <VendorCard key={v.id} vendor={v} />
         ))}
       </div>
