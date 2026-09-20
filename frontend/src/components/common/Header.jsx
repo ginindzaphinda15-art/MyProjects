@@ -20,13 +20,14 @@ export default function Header() {
         </Link>
         <nav className="flex items-center gap-5 text-sm">
           <Link to="/" 
-          className="bg-brand-gradient text-white px-3 py-1.5 rounded-sm font-medium hover:opacity-90">
-            Browse
+        className="bg-brand-gradient text-white px-3 py-1.5 rounded-sm font-medium hover:opacity-90"
+            >
+              Browse
           </Link>
           {!user && (
             <>
               <Link to="/login" 
-              className="bg-brand-gradient text-white px-3 py-1.5 rounded-sm font-medium hover:opacity-90"
+             className="bg-brand-gradient text-white px-3 py-1.5 rounded-sm font-medium hover:opacity-90"
               >
                 Log in
               </Link>
@@ -40,14 +41,14 @@ export default function Header() {
           )}
           {user && user.role === 'customer' && (
             <Link to="/dashboard" 
-            className="bg-brand-gradient text-white px-3 py-1.5 rounded-sm font-medium hover:opacity-90">
-              My bookings &amp; orders
+            className="bg-brand-gradient text-white px-3 py-1.5 rounded-sm font-medium hover:opacity-90"
+              >My bookings &amp; orders
             </Link>
           )}
           {user && user.role === 'vendor' && (
             <Link to="/vendor" 
-            className="bg-brand-gradient text-white px-3 py-1.5 rounded-sm font-medium hover:opacity-90">
-              Vendor dashboard
+            className="bg-brand-gradient text-white px-3 py-1.5 rounded-sm font-medium hover:opacity-90"
+              >Vendor dashboard
             </Link>
           )}
           {user && (
