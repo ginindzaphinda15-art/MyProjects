@@ -19,13 +19,13 @@ export default function Header() {
           <Logo />
         </Link>
         <nav className="flex items-center gap-5 text-sm">
-          <Link to="/" className="hover:underline"
+          <Link to="/" 
           className="bg-brand-gradient text-white px-3 py-1.5 rounded-sm font-medium hover:opacity-90">
             Browse
           </Link>
           {!user && (
             <>
-              <Link to="/login" className="hover:underline"
+              <Link to="/login" 
               className="bg-brand-gradient text-white px-3 py-1.5 rounded-sm font-medium hover:opacity-90"
               >
                 Log in
@@ -39,19 +39,19 @@ export default function Header() {
             </>
           )}
           {user && user.role === 'customer' && (
-            <Link to="/dashboard" className="hover:underline"
+            <Link to="/dashboard" 
             className="bg-brand-gradient text-white px-3 py-1.5 rounded-sm font-medium hover:opacity-90">
               My bookings &amp; orders
             </Link>
           )}
           {user && user.role === 'vendor' && (
-            <Link to="/vendor" className="hover:underline"
+            <Link to="/vendor" 
             className="bg-brand-gradient text-white px-3 py-1.5 rounded-sm font-medium hover:opacity-90">
               Vendor dashboard
             </Link>
           )}
           {user && (
-            <button onClick={handleLogout} className="text-sm text-paper/70 hover:text-paper"
+            <button onClick={handleLogout} 
             className="bg-brand-gradient text-white px-3 py-1.5 rounded-sm font-medium hover:opacity-90">
               Log out
             </button>
