@@ -4,7 +4,7 @@ import axios from 'axios';
 // (e.g. `/auth/register` → https://.../api/auth/register).
 // Local dev falls back to localhost if .env isn't set.
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
+  baseURL: process.env.REACT_APP_API_URL || 'https://esebelink.onrender.com/api',
 });
 
 // Attach the JWT to every request once the user is logged in.
