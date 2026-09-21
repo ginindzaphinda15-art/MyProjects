@@ -18,12 +18,34 @@ const app = express();
 // frontend runs on a different origin), so relax helmet's default resource
 // policy just for the static file middleware below.
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
-app.use(cors({ origin: process.env.CLIENT_URL || '*', credentials: true }));
+
+// CORS: allow local dev + the deployed Netlify frontend + anything set
+// in CLIENT_URL. Requests without an Origin header (curl, Postman, mobile
+// apps, Render health checks) are always allowed.
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://esebelinkmarket.netlify.app',
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+    credentials: true,
+  })
+);
+
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/health', (req, res) => res.json({ status: 'ok', service: 'esebelink-marketplace-api' }));
+app.get('/health', (req, res) =>
+  res.json({ status: 'ok', service: 'esebelink-marketplace-api' })
+);
 
 // Publicly served images: vendor logos/banners, service/product catalog photos.
 app.use('/uploads', express.static(UPLOAD_DIR, { maxAge: '7d' }));

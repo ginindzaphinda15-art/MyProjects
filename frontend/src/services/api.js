@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+// Base URL includes the `/api` prefix so endpoint paths below can stay short
+// (e.g. `/auth/register` → https://.../api/auth/register).
+// Local dev falls back to localhost if .env isn't set.
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
 });
@@ -49,9 +52,6 @@ export const bookingApi = {
   listForVendor: (params) => api.get('/bookings/vendor', { params }),
   updateStatus: (id, status) => api.patch(`/bookings/${id}/status`, { status }),
   cancel: (id) => api.patch(`/bookings/${id}/cancel`),
-  // Scheduling-assistant lookup: which times are already taken / free for a
-  // vendor on a given date, so the booking form can steer customers away
-  // from slots that would just get rejected.
   availability: (params) => api.get('/bookings/availability', { params }),
 };
 
@@ -63,11 +63,12 @@ export const orderApi = {
 };
 
 export const uploadApi = {
-  // Vendor-only. Pass a File (from an <input type="file"> change event); returns { url }.
   image: (file) => {
     const form = new FormData();
     form.append('image', file);
-    return api.post('/uploads/image', form, { headers: { 'Content-Type': 'multipart/form-data' } });
+    return api.post('/uploads/image', form, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   },
 };
 
